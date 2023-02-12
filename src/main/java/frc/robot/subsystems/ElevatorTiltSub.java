@@ -1,6 +1,3 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
 
@@ -21,7 +18,7 @@ public class ElevatorTiltSub extends SubsystemBase {
     SmartDashboard.putNumber("Elevator Pitch Encoder: ", elevatorPitchEncoder.getPosition());
   }
 
-  public void setElevatorTilt(double elevatorSpeed) {
-    elevatorPitchMotor.set(elevatorSpeed);
+  public void setElevatorTilt(double elevatorTiltSpeed) {
+    elevatorPitchMotor.set(elevatorTiltSpeed);
   }
 }

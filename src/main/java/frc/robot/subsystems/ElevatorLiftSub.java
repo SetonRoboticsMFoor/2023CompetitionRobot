@@ -1,6 +1,3 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
 
@@ -13,15 +10,19 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ElevatorLiftSub extends SubsystemBase {
-  private CANSparkMax elevatorPitchMotor = new CANSparkMax(Constants.eleTiltMotorCh, MotorType.kBrushed);
-  private RelativeEncoder elevatorPitchEncoder = elevatorPitchMotor.getEncoder();
+  private CANSparkMax elevatorLiftMotor = new CANSparkMax(Constants.eleLiftMotorCh, MotorType.kBrushless);
+  private RelativeEncoder elevatorLiftEncoder = elevatorLiftMotor.getEncoder();
   
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Elevator Pitch Encoder: ", elevatorPitchEncoder.getPosition());
+    SmartDashboard.putNumber("Elevator Pitch Encoder: ", elevatorLiftEncoder.getPosition());
   }
 
-  public void setElevatorTilt(double elevatorSpeed) {
-    elevatorPitchMotor.set(elevatorSpeed);
+  public void setElevatorLift(double elevatorLiftSpeed) {
+    elevatorLiftMotor.set(elevatorLiftSpeed);
+  }
+
+  public double getElevatorEncoder() {
+    return elevatorLiftEncoder.getPosition();
   }
 }

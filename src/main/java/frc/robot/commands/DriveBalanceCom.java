@@ -4,27 +4,41 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
+import frc.robot.subsystems.DriveTrainSub;
 
 public class DriveBalanceCom extends CommandBase {
-  /** Creates a new DriveBalanceCom. */
-  public DriveBalanceCom() {
-    // Use addRequirements() here to declare subsystem dependencies.
+  private final DriveTrainSub m_DriveTrainSub;
+  private final PIDController m_PidController;
+
+  public DriveBalanceCom(DriveTrainSub m_DriveTrainSub, double setPoint) {
+    this.m_DriveTrainSub = m_DriveTrainSub;
+    this.m_PidController = new PIDController(Constants.drivekP, Constants.drivekI, Constants.drivekD);
+    m_PidController.setSetpoint(setPoint);
+    addRequirements(m_DriveTrainSub);
+
   }
 
-  // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    m_PidController.reset();
+  }
 
-  // Called every time the scheduler runs while the command is scheduled.
+
   @Override
-  public void execute() {}
+  public void execute() {
+    double speed = m_PidController.calculate(m_DriveTrainSub.getNavX());
+    m_DriveTrainSub.driveTrainDrive(0, speed);
+  }
 
-  // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_DriveTrainSub.driveTrainDrive(0, 0);
+  }
 
-  // Returns true when the command should end.
+ 
   @Override
   public boolean isFinished() {
     return false;

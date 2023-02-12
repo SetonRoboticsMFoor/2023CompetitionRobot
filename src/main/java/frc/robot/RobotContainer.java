@@ -4,8 +4,7 @@
 
 package frc.robot;
 
-import frc.robot.commands.Autos;
-import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.DriveBalanceCom;
 import frc.robot.commands.JoystickDriveCom;
 import frc.robot.subsystems.DriveTrainSub;
 import frc.robot.subsystems.ElevatorLiftSub;
@@ -27,6 +26,7 @@ public class RobotContainer {
 
   private final Joystick driveStick = new Joystick(Constants.driveStickCh);
   private final JoystickButton shiftBtn = new JoystickButton(driveStick, Constants.shiftBtn);
+  private final JoystickButton balanceBtn = new JoystickButton(driveStick, Constants.balanceBtn);
 
   private final Joystick intakeStick = new Joystick(Constants.intakeStickCh);
   private final JoystickButton elevatorLiftUpBtn = new JoystickButton(intakeStick, Constants.elevatorUpBtn);
@@ -35,7 +35,7 @@ public class RobotContainer {
   private final JoystickButton elevatorTiltInBtn = new JoystickButton(intakeStick, Constants.tiltInBtn);
   private final JoystickButton elevatorTiltOutBtn = new JoystickButton(intakeStick, Constants.tiltOutBtn);
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+ 
   public RobotContainer() {
     m_DriveTrainSub.setDefaultCommand(new JoystickDriveCom(m_DriveTrainSub, () ->driveStick.getRawAxis(1), () ->driveStick.getRawAxis(2)));
     
@@ -44,12 +44,14 @@ public class RobotContainer {
 
 
   private void configureBindings() {
+
+    balanceBtn.toggleOnTrue(new DriveBalanceCom(m_DriveTrainSub, Constants.balanceSetpoint));
    
   }
 
 
   public Command getAutonomousCommand() {
 
-    return Autos.exampleAuto();
+    return null;
   }
 }

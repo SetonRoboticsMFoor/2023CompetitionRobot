@@ -21,4 +21,8 @@ public class ElevatorTiltSub extends SubsystemBase {
   public void setElevatorTilt(double elevatorTiltSpeed) {
     elevatorPitchMotor.set(elevatorTiltSpeed);
   }
+
+  public double getElevatorTiltEncoder() {
+    return elevatorPitchEncoder.getPosition();
+  }
 }

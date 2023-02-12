@@ -22,7 +22,7 @@ public class ElevatorLiftSub extends SubsystemBase {
     elevatorLiftMotor.set(elevatorLiftSpeed);
   }
 
-  public double getElevatorEncoder() {
+  public double getElevatorLiftEncoder() {
     return elevatorLiftEncoder.getPosition();
   }
 }

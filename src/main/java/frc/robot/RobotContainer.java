@@ -5,7 +5,11 @@
 package frc.robot;
 
 import frc.robot.commands.DriveBalanceCom;
+import frc.robot.commands.DriveShiftCom;
 import frc.robot.commands.JoystickDriveCom;
+import frc.robot.commands.SetIntakeCom;
+import frc.robot.commands.SetLiftCom;
+import frc.robot.commands.SetTiltCom;
 import frc.robot.subsystems.DriveTrainSub;
 import frc.robot.subsystems.ElevatorLiftSub;
 import frc.robot.subsystems.ElevatorTiltSub;
@@ -35,6 +39,9 @@ public class RobotContainer {
   private final JoystickButton elevatorTiltInBtn = new JoystickButton(intakeStick, Constants.tiltInBtn);
   private final JoystickButton elevatorTiltOutBtn = new JoystickButton(intakeStick, Constants.tiltOutBtn);
 
+  private final JoystickButton intakeInBtn = new JoystickButton(intakeStick, Constants.intakeInBtn);
+  private final JoystickButton intakeOutBtn = new JoystickButton(intakeStick, Constants.intakeOutBtn);
+
  
   public RobotContainer() {
     m_DriveTrainSub.setDefaultCommand(new JoystickDriveCom(m_DriveTrainSub, () ->driveStick.getRawAxis(1), () ->driveStick.getRawAxis(2)));
@@ -46,6 +53,16 @@ public class RobotContainer {
   private void configureBindings() {
 
     balanceBtn.toggleOnTrue(new DriveBalanceCom(m_DriveTrainSub, Constants.balanceSetpoint));
+    shiftBtn.toggleOnTrue(new DriveShiftCom());
+
+    elevatorLiftUpBtn.onTrue(new SetLiftCom(m_ElevatorLiftSub, Constants.liftTopSetpoint));
+    elevatorLiftDownBtn.onTrue(new SetLiftCom(m_ElevatorLiftSub, Constants.liftBottomSetpoint));
+
+    elevatorTiltInBtn.onTrue(new SetTiltCom(m_ElevatorTiltSub, Constants.tiltInSetpoint));
+    elevatorTiltOutBtn.onTrue(new SetTiltCom(m_ElevatorTiltSub, Constants.tiltOutSetpoint));
+
+    intakeInBtn.onTrue(new SetIntakeCom());
+    intakeOutBtn.onTrue(new SetIntakeCom());
    
   }
 

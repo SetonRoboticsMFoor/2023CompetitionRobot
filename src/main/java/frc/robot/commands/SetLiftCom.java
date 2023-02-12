@@ -13,20 +13,17 @@ public class SetLiftCom extends PIDCommand {
     super(
         
         new PIDController(Constants.liftkP, Constants.liftkI, Constants.liftkD),
-        // This should return the measurement
-        () -> m_ElevatorLiftSub.getElevatorEncoder(),
-        // This should return the setpoint (can also be a constant)
+       
+        () -> m_ElevatorLiftSub.getElevatorLiftEncoder(),
         () -> setpoint,
-        // This uses the output
         output -> {
-          m_ElevatorLiftSub.setElevatorLift(setpoint);
+          m_ElevatorLiftSub.setElevatorLift(output);
         });
         addRequirements(m_ElevatorLiftSub);
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return getController().atSetpoint();
   }
 }

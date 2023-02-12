@@ -1,36 +1,29 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
+import frc.robot.Constants;
+import frc.robot.subsystems.ElevatorTiltSub;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
+
 public class SetTiltCom extends PIDCommand {
-  /** Creates a new SetTiltCom. */
-  public SetTiltCom() {
+
+  public SetTiltCom(ElevatorTiltSub m_ElevatorTiltSub, double setpoint) {
     super(
-        // The controller that the command will use
-        new PIDController(0, 0, 0),
-        // This should return the measurement
-        () -> 0,
-        // This should return the setpoint (can also be a constant)
-        () -> 0,
-        // This uses the output
+        
+        new PIDController(Constants.tiltkP, Constants.tiltkI, Constants.tiltkD),
+       
+        () -> m_ElevatorTiltSub.getElevatorTiltEncoder(),
+        () -> setpoint,
         output -> {
-          // Use the output here
+          m_ElevatorTiltSub.setElevatorTilt(output);
         });
-    // Use addRequirements() here to declare subsystem dependencies.
-    // Configure additional PID options by calling `getController` here.
+        addRequirements(m_ElevatorTiltSub);
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return getController().atSetpoint();
   }
 }

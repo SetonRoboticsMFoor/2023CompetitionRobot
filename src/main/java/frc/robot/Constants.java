@@ -36,6 +36,8 @@ public final class Constants {
     // Intake Contants /////////////////////////////
     public static int leftIntakeMotorCh = 7;
     public static int rightIntakeMotorCh = 8;
+    public static double intakeSpeed = .5;
+
 
     //OI Contants //////////////////////////////////
     public static int driveStickCh = 0;

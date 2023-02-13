@@ -14,6 +14,7 @@ import frc.robot.subsystems.DriveTrainSub;
 import frc.robot.subsystems.ElevatorLiftSub;
 import frc.robot.subsystems.ElevatorTiltSub;
 import frc.robot.subsystems.IntakeSub;
+import frc.robot.subsystems.ShifterSub;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -26,6 +27,7 @@ public class RobotContainer {
   private final ElevatorLiftSub m_ElevatorLiftSub = new ElevatorLiftSub();
   private final ElevatorTiltSub m_ElevatorTiltSub = new ElevatorTiltSub();
   private final IntakeSub m_IntakeSub = new IntakeSub();
+  private final ShifterSub m_ShifterSub = new ShifterSub();
 
   private final Joystick driveStick = new Joystick(Constants.driveStickCh);
   private final JoystickButton shiftBtn = new JoystickButton(driveStick, Constants.shiftBtn);
@@ -52,7 +54,7 @@ public class RobotContainer {
   private void configureBindings() {
 
     balanceBtn.toggleOnTrue(new DriveBalanceCom(m_DriveTrainSub, Constants.balanceSetpoint));
-    shiftBtn.toggleOnTrue(new DriveShiftCom());
+    shiftBtn.toggleOnTrue(new DriveShiftCom(m_ShifterSub));
 
     elevatorLiftUpBtn.onTrue(new SetLiftCom(m_ElevatorLiftSub, Constants.liftTopSetpoint));
     elevatorLiftDownBtn.onTrue(new SetLiftCom(m_ElevatorLiftSub, Constants.liftBottomSetpoint));

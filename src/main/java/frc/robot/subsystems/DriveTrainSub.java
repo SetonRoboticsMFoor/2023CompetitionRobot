@@ -5,9 +5,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -31,7 +29,6 @@ public class DriveTrainSub extends SubsystemBase {
 
   private AHRS navX = new AHRS(SPI.Port.kMXP);
 
-  private Solenoid shiftSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.shiftSolenoidCh);
 
   
 
@@ -41,12 +38,9 @@ public class DriveTrainSub extends SubsystemBase {
     SmartDashboard.putNumber("Drive Right Encoder Value: ", rightEncoder.getPosition());
     SmartDashboard.putNumber("Gyro Heading: ", navX.getAngle());
     SmartDashboard.putNumber("Gyro Pitch: ", navX.getPitch());
-    SmartDashboard.putBoolean("Shifter State: ", shiftSolenoid.get());
   }
 
-  public void shiftGears(boolean shiftValue) {
-    shiftSolenoid.set(shiftValue);
-  }
+  
 
   public void driveTrainDrive (double turn, double drive) {
     driveTrain.arcadeDrive(turn, drive);
